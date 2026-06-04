@@ -1,23 +1,21 @@
 ## Q1. What is CSS and how do you add it to an HTML page?
 ### Theory
-1. **What CSS stands for:** CSS means **Cascading Style Sheets**.
-2. **What problem does it solve:** In old HTML, if we wanted to change the color or font of 50 pages, we had to change every single page one by one. It was very messy and took a lot of time. CSS solves this problem. It separates the design from the HTML structure, so we can change the look of the whole website from just one place.
-1. **Three methods of adding CSS:** 
-  1. **External CSS:** We make a separate `.css` file and link it in the HTML head.
-  2. **Internal CSS:** We write the CSS rules inside a `<style>` tag inside the HTML head.
-  3. **Inline CSS:** We write the style directly inside the HTML tag using the `style=""` attribute.
-2. **Why external CSS is preferred:** It is the best method because it keeps our HTML code clean. We don't have to repeat code, and if we want to change the style of the entire website in the future, we only need to edit one single CSS file.
+* **What CSS stands for:** CSS stands for **Cascading Style Sheets**.
+* **What problem does it solve:** In early HTML, styling a website required changing the fonts and colors of every single page manually. If a website had 50 pages, it was very messy and time-consuming. CSS solves this problem by separating the design/presentation from the HTML structure, allowing us to change the entire website's look from one single place.
+* **Three methods of adding CSS:**
+  1. **External CSS:** Writing CSS rules in a separate `.css` file and linking it in the HTML `<head>`.
+  2. **Internal CSS:** Writing CSS rules inside a `<style>` tag directly inside the HTML `<head>`.
+  3. **Inline CSS:** Applying styles directly to an HTML element using the `style` attribute.
+* **Why external CSS is preferred over inline CSS:** External CSS keeps the HTML code clean, readable, and highly reusable. Instead of repeating styling code on every HTML element (like inline CSS), external CSS allows you to manage and update the design of an entire multi-page website by editing just one stylesheet.
 ### Code Task: Methods of Adding CSS
-Here is how we use the three different methods:
-#### 1. External CSS (Best Method)
-First, we make a file named `style.css` and add our styles:
+#### 1. External CSS (Recommended Method)
+First, we create a file named `style.css`:
 ```css
 /* style.css */
 p {
     color: green;
     font-size: 18px;
 }
-```
 <head>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -32,220 +30,405 @@ p {
 <button style="background-color: red; color: white; padding: 10px;">
     Click Here
 </button>
-
-## Q2. Explain CSS Selectors with examples?
+```
+## Q2. Explain CSS Selectors with examples.
 ### Theory
-1. What is a CSS Selector: A CSS selector is like a pointer. It tells the browser which HTML element we want to style. Without selectors, CSS won't know where to apply the colors or fonts.
-2. Types of Selectors: There are many types, but the 4 main basic ones are:
-1. Element Selector: It selects all elements with the same tag name (like all <p> or all <h1>).
-2. Id Selector: It selects a unique element using its id attribute. We use a hash (#) symbol before the ID name in CSS.
-3. Class Selector: It selects elements that have a specific class attribute. We can use it on multiple elements. We use a dot (.) symbol before the class name in CSS.
-4. Universal Selector: It selects every single element on the webpage. We use an asterisk (*) symbol for this.
+* **What is a CSS Selector:** A CSS selector is a pattern used to target or point to the specific HTML elements you want to style. Without selectors, the browser would not know where to apply your CSS rules.
+
+* **Detailed Concept Breakdown (Points to Cover):**
+  * **Which selector has the highest specificity — class or ID?** An **ID selector** has a much higher specificity (strength) than a class selector. If there is a conflict, the ID style wins.
+  * **Can you use the same class on multiple elements?** **Yes.** Classes are designed to be reusable. You can apply the same class name to as many HTML elements as you want.
+  * **Can you use the same ID on multiple elements?** **No.** An ID must be completely unique on a webpage. It can only be used for one single element per page.
+  * **When to use a class vs an ID:** Use a **class** when you want to apply the same styling to a group of multiple elements (like buttons or cards). Use an **ID** only when targeting a single, unique element that needs special styling (like a main navigation bar or header).
+  * **How do you target an element that is a direct child vs any descendant?** * To target a **direct child**, we use the `>` combinator (e.g., `div > p` only styles paragraphs directly inside that div).
+    * To target **any descendant** (anywhere inside, even nested deeply), we use a simple space (e.g., `div p` styles every single paragraph inside that div, no matter how deep).
+### Code Task: Examples of All 7 Selector Types
+#### 1. Element Selector (Targets all tags of this type)
+```css
+p {
+    color: darkblue;
+}
+<div class="card">Box 1</div>
+.card {
+    background-color: lightgray;
+    padding: 10px;
+}
+<h1 id="main-title">Welcome</h1>
+#main-title {
+    text-align: center;
+}
+h1, h2, h3 {
+    font-family: Arial, sans-serif;
+    color: green; /* Applies to all three headings at once */
+}
+<div class="box">
+    <span>Inside Box</span>
+</div>
+.box span {
+    font-weight: bold; /* Styles any span inside .box */
+}
+<ul class="parent-list">
+    <li>Direct Child</li>
+</ul>
+.parent-list > li {
+    list-style-type: square; /* Only targets li directly inside .parent-list */
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+```
 ## Q3. What is the CSS Box Model? Explain each layer.
 ### Theory
-1. **What is the CSS Box Model:** In CSS, every HTML element is treated as a rectangular box. The Box Model is a set of rules that decides the total size (width and height) of that box on the webpage.
-2. **The 4 Layers of Box Model:** From inside to outside, a box has four parts:
-  1. **Content:** This is the actual text, image, or video inside the box where your data sits.
-  2. **Padding:** This is the space around the content, but inside the border. It helps create breathing room for text so it doesn't touch the border.
-  3. **Border:** This is a line that wraps around the padding and content. You can make it visible with different colors and thickness.
-  4. **Margin:** This is the outermost space outside the border. It separates this box from other elements on the page.
-### Code Task: Box Model Example
-Here is a simple example showing how we apply all these layers to a `div` box:
+* **What is the CSS Box Model:** In CSS, every HTML element is treated as a rectangular box. The Box Model is a set of rules that decides the total size (width and height) of that box on a webpage.
+* **The 4 Layers of Box Model:**
+  1. **Content:** This is the actual text, image, or video. It is the **innermost** layer.
+  2. **Padding:** This is the clearing area/space around the content. It sits **inside** the border to give the text breathing room.
+  3. **Border:** This is a boundary line that wraps around both the padding and content.
+  4. **Margin:** This is the outermost space **outside** the border. It separates this box from other elements.
+### Detailed Concept Breakdown (Assignment Questions)
+* **Which layer is the innermost?** The **Content** layer is the innermost layer of the box model.
+* **Padding is inside or outside the border?** Padding is strictly **inside** the border.
+* **What does `margin: 0 auto;` do to a block element?** It centers a block element horizontally inside its parent container. `0` resets the top and bottom margins, while `auto` tells the browser to apply equal space on both the left and right sides automatically.
+* **With `border-box`, does width include padding?** Yes! When using `box-sizing: border-box;`, the defined width **includes** both the padding and the border. The box will not grow larger than your specified width.
+
+* **Difference between content-box and border-box:**
+  * **content-box (Default):** Padding and borders are added *outside* the width. If width is 300px, adding 20px padding makes the actual box 340px wide, which often breaks grid layouts.
+  * **border-box (Used in Professional Projects):** Padding and borders are absorbed *inside* the width. The visible box stays exactly 300px. Professional projects always use `border-box` because it makes sizing completely predictable.
+### Code Task: Box Model CSS Rule
 ```css
-.box-example {
-    width: 300px;         /* Content size */
-    padding: 20px;        /* Space inside the border */
-    border: 5px solid red; /* The boundary line */
-    margin: 30px;         /* Space outside the box */
-    background-color: lightgray;
+.box {
+    box-sizing: border-box; /* Width includes padding and border */
+    width: 300px;           /* Exact total layout width */
+    padding: 20px;          /* Inside clearing space */
+    border: 2px solid;      /* Boundary lines */
+    margin: 16px;           /* Outside spacing from other items */
 }
 ```
 ## Q4. Explain CSS Colors. What are the different ways to define a color?
 ### Theory
-1. **CSS Colors:** CSS allows us to change the color of text, backgrounds, borders, and other elements. 
-2. **Ways to Define Colors:** In CSS, we can specify colors in 4 main ways:
-  1. **Color Names:** Using standard English names like `red`, `blue`, `green`, `purple`. There are about 140 standard color names.
-  2. **Hex Codes (Hexadecimal):** A 6-character code starting with a hash (`#`) symbol. It uses numbers (0-9) and letters (A-F). For example, `#000000` is black and `#FFFFFF` is white.
-  3. **RGB / RGBA:** Stands for Red, Green, Blue. We give values from 0 to 255 for each color, like `rgb(255, 0, 0)` for pure red. **RGBA** has a fourth value (A for Alpha) from 0.0 to 1.0 to control transparency (how see-through the color is).
-  4. **HSL / HSLA:** Stands for Hue (color wheel angle from 0-360), Saturation (percentage of gray), and Lightness (percentage of white/black). **HSLA** also includes Alpha for transparency.
-### Code Task: Examples of Defining Colors
-Here is how we use different color methods in CSS:
+* **What are CSS Colors:** Colors in CSS are used to style text, backgrounds, borders, and other design elements. There are multiple formats to define colors depending on the level of control and transparency required.
+* **The 5 Color Formats:**
+  1. **Named Colors:** Standard color names recognized by browsers (e.g., `red`, `blue`, `orange`).
+  2. **HEX (Hexadecimal):** A 6-character code starting with a hash (`#`) representing Red, Green, and Blue values in hex digits (e.g., `#F97316`).
+  3. **RGB:** Defines color using three numbers from 0 to 255 for Red, Green, and Blue (e.g., `rgb(249, 115, 22)`).
+  4. **RGBA:** Same as RGB, but adds a fourth value called Alpha (from 0.0 to 1.0) to control transparency/opacity.
+  5. **HSL:** Defines color using Hue (0-360 degrees on color wheel), Saturation (percentage), and Lightness (percentage).
+### Detailed Concept Breakdown (Assignment Questions)
+* **Which format is most commonly used by developers?** **HEX codes** are the most commonly used by developers because they are short, precise, and easily copied from design tools like Figma. However, **RGBA** is heavily used when transparency is needed.
+* **What does the 'A' in RGBA stand for?** The 'A' stands for **Alpha**, which controls the transparency or opacity of the color.
+* **Does opacity affect child elements?** **Yes.** When you use `opacity: 0.5;` on a parent element, the entire element **including all its text, buttons, and child elements** becomes 50% transparent.
+* **Does rgba affect child elements?** **No.** When you use `rgba(0,0,0,0.5)` as a background color, it **only** makes the background transparent. The text and child elements inside it remain completely solid (100% visible).
+### Code Task: Orange Color (`#F97316`) in All 5 Formats
+Here is how you write the exact same orange color using all five methods required by the assignment:
 ```css
-.box-name {
-    color: red; /* Color Name */
+/* 1. Named Color Format */
+.orange-box {
+    color: orange; 
 }
 
-.box-hex {
-    background-color: #3498db; /* Hex Code for Blue */
+/* 2. HEX Format (Given in assignment) */
+.orange-box {
+    color: #F97316; 
 }
 
-.box-rgb {
-    color: rgb(46, 204, 113); /* RGB for Green */
+/* 3. RGB Format */
+.orange-box {
+    color: rgb(249, 115, 22); 
 }
 
-.box-rgba {
-    background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
+/* 4. RGBA Format (1.0 means fully solid/opaque) */
+.orange-box {
+    color: rgba(249, 115, 22, 1.0); 
 }
 
-.box-hsl {
-    color: hsl(200, 100%, 50%); /* HSL Light Blue */
+/* 5. HSL Format */
+.orange-box {
+    color: hsl(25, 95%, 53%); 
 }
 ```
 ## Q5. What are CSS Units? Explain px, %, rem, em, vh, and vw.
-### Theory
-1. **What are CSS Units:** CSS units are used to express the size, padding, margin, or font-size of elements. There are two types of units: **Absolute** (fixed size) and **Relative** (changes size based on the screen or parent element).
-2. **Explanation of Units:**
-  1. **px (Pixels):** This is an absolute unit. `1px` is like a single tiny dot on the screen. It stays the same size on every device.
-  2. **% (Percentage):** A relative unit. It calculates size relative to its parent element. If a parent box is `500px` wide and the child is `50%`, the child will be `250px`.
-  3. **em:** A relative unit based on the font-size of its immediate parent element. If parent font-size is `16px`, then `1em` = `16px`, and `2em` = `32px`.
-  4. **rem (Root em):** A relative unit based ONLY on the font-size of the root element (usually the `<html>` tag, which defaults to `16px`). It is much easier to use than `em` because it doesn't change with parents.
-  5. **vh (Viewport Height):** Relative to the total height of the browser window screen. `1vh` is equal to 1% of the screen's height. `100vh` means full screen height.
-  6. **vw (Viewport Width):** Relative to the total width of the browser window screen. `1vw` is equal to 1% of the screen's width. `100vw` means full screen width.
-### Code Task: Examples of CSS Units
-Here is how we apply these units in CSS:
+### Theory & Golden Rules
+* **What are CSS Units:** CSS units are measurements used to define the size of text, padding, margins, widths, heights, and other spacing elements on a web page.
+* **The Golden Rules for Layouts:**
+  1. **For Font Sizes:** Always prefer **rem** units to make text accessible and scalable.
+  2. **For Widths:** Prefer **percentages (%)** or **rem/em** to keep boxes responsive.
+  3. **For Full-Screen Sections:** Always use **vh (Viewport Height)** and **vw (Viewport Width)**.
+### Detailed Concept Breakdown (Assignment Questions)
+* **What is 1rem equal to by default?** By default, `1rem` is equal to **16px** (which is the standard root font-size of almost all modern web browsers).
+* **Is % relative to the parent or the root?** A percentage (`%`) unit is strictly relative to its immediate **parent element**, not the root.
+* **What does vh stand for?** `vh` stands for **Viewport Height**. `1vh` is equal to 1% of the browser window's total height.
+* **Why is rem better than px for font-size in accessibility?** If a user changes their browser's default text size (for example, visually impaired users making text larger), text defined in `px` remains frozen and does not grow. However, text defined in `rem` scales beautifully according to the user's custom settings, making the website fully accessible.
+### Sizing Units Guide Table
+
+| Unit | What it is Relative To | Practical Use Case | Example |
+| :--- | :--- | :--- | :--- |
+| **px** | Absolute pixels (fixed size) | Small, fixed borders or shadows | `border: 2px solid;` |
+| **%** | Relative to the Parent element's size | Responsive layout columns and grids | `width: 50%;` |
+| **rem** | Relative to the Root element (`<html>`) | Font sizes, padding, and margins | `font-size: 1.2rem;` |
+| **em** | Relative to the element's own font-size | Padding inside buttons that scales with text | `padding: 0.5em;` |
+| **vh** | Relative to 1% of Viewport (Screen) Height | Creating a full-screen landing section | `height: 100vh;` |
+| **vw** | Relative to 1% of Viewport (Screen) Width | Text or hero sections that scale with screen width | `width: 100vw;` |
+### Code Task: Responsive Hero Section
+Here is the perfect CSS rule for a full-screen hero section using fluid fonts and accessible sizing:
+
 ```css
-.fixed-box {
-    font-size: 16px;      /* Fixed text size */
-    width: 200px;         /* Fixed width */
+.hero-section {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    /* 1. Full viewport height */
+    width: 100vw;
+    height: 100vh; 
+    
+    /* 2. Max-width uses rem for crisp layout control */
+    max-width: 75rem; /* 75rem * 16px = 1200px max width container */
+    margin: 0 auto;   /* Centers the block container horizontally */
+    
+    padding: 2rem;
+    background-color: #f4f4f4;
 }
 
-.responsive-box {
-    width: 50%;           /* Takes half width of its parent */
-    font-size: 2rem;      /* 2 times the root font size (usually 32px) */
-}
-
-.full-screen-section {
-    width: 100vw;         /* Covers full width of the screen */
-    height: 100vh;        /* Covers full height of the screen */
-    padding: 2em;         /* Padding relative to parent text size */
+.hero-section h1 {
+    /* 3. Font-size scales dynamically with viewport width */
+    font-size: 5vw; 
+    min-font-size: 2rem; /* Fallback protection for small screens */
+    color: #333;
 }
 ```
 ## Q6. What is CSS Specificity and how does the Cascade work?
 ### Theory
-1. **How the Cascade works:** "Cascading" means that CSS reads the code from top to bottom. If you write two different styles for the same HTML element, the style written at the bottom (last) will overwrite the one at the top. It is like the final decision.
-2. **What is CSS Specificity:** Specificity is a set of rules that browsers use to decide which CSS property value is the most important and should be applied. If two styles conflict, the browser doesn't just look at which one is at the bottom, it looks at which selector is more specific (stronger).
-3. **The Specificity Hierarchy (From Strongest to Weakest):**
-  1. **Inline Styles:** Directly inside the HTML tag (e.g., `style="color: red;"`). This is the strongest.
-  2. **ID Selectors:** Uses `#` (e.g., `#main-header`). Very strong.
-  3. **Class / Pseudo-class Selectors:** Uses `.` (e.g., `.card` or `:hover`). Medium strength.
-  4. **Element Selectors:** Tag names (e.g., `p`, `h1`). Weakest.
-### Code Task: Examples of Cascade and Specificity
-#### 1. Example of Cascade (Top to Bottom Rule)
-Here, the paragraph will turn **blue** because blue is written last:
+* **How the Cascade works:** "Cascading" means that the browser reads and applies CSS rules from top to bottom (Source Order). It also considers Specificity (strength) and Inheritance (properties passed from parent to child).
+* **What is CSS Specificity:** Specificity is the scoring system or weight that browsers use to determine which CSS rule wins when multiple selectors target the exact same element.
+* **What `!important` does and why it should be avoided:** The `!important` rule overrides all other specificity levels completely, forcing that style to win. It should be avoided because it breaks the natural cascade, making the CSS chaotic and extremely difficult to debug or override later.
+### Detailed Concept Breakdown (Assignment Questions)
+* **Which higher specificity — a class or an element selector?** A **class selector** has a higher specificity than a standard element selector.
+* **What specificity score does an inline style have?** Inline styles have the highest weight in a standard CSS sheet, often represented as a score of **(1, 0, 0, 0)** or **1000** compared to IDs (100) and classes (10).
+* **If two rules have equal specificity, which one wins?** If the specificity is exactly equal, the **Cascade** rule takes over, meaning the rule written **last (at the bottom of the file)** wins.
+* **What does `!important` override?** It overrides everything: element selectors, classes, IDs, and inline styles.
+### Code Task: Specificity Conflict Example
+Given HTML: `<p id="intro" class="text">Hello</p>`
 ```css
+/* 1. Element Selector (Weakest - Score: 0,0,0,1) */
 p {
     color: red;
 }
-p {
-    color: blue; /* Wins because it is at the bottom */
+
+/* 2. Class Selector (Medium - Score: 0,0,1,0) */
+.text {
+    color: blue;
+}
+
+/* 3. ID Selector (Strongest - Score: 0,1,0,0) - THIS WINS! */
+#intro {
+    color: green; /* The text "Hello" will be GREEN */
 }
 ```
-<p id="special-text" class="normal-text">Hello World</p>
-#special-text {
-    color: green; /* ID Selector (Strongest) - THIS WINS! */
-}
-
-.normal-text {
-    color: blue;  /* Class Selector (Medium) */
-}
-
-p {
-    color: red;   /* Element Selector (Weakest) */
-}
 ## Q7. Explain CSS Flexbox. How does it differ from block layout?
-
 ### Theory
-* **What is CSS Flexbox:** Flexbox stands for Flexible Box Layout. It is a 1-Dimensional layout system used to align and distribute items in a single row or a single column easily, even when the screen size changes.
-* **Difference from Block Layout:** * In standard **Block Layout**, elements automatically stack on top of each other (one below the other). Making them sit side-by-side used to be very hard.
-  * In **Flexbox Layout**, we just write `display: flex;` on the parent box, and all child items instantly arrange themselves side-by-side in a clean row. Centering items or giving space between them becomes super easy.
-### Code Task: Flexbox Example
-```html
-<div class="flex-container">
-    <div class="box">1</div>
-    <div class="box">2</div>
-    <div class="box">3</div>
-</div>
-.flex-container {
+* **What is Flexbox:** Flexbox (Flexible Box Layout) is a 1-dimensional layout system designed for aligning elements in either a row or a column.
+* **How it differs from standard block layout:** Standard block layout stacks elements vertically on top of each other by default and lacks easy alignment tools. Flexbox, once activated with `display: flex;`, allows items to automatically shrink, grow, stretch, and align beautifully along axes without calculating fixed dimensions.
+* **Two Real-World Use Cases for Flexbox:**
+  1. Creating a responsive Navigation Bar (Logo on left, links on right).
+  2. Perfectly centering a login form or modal card horizontally and vertically inside a screen.
+
+### Detailed Concept Breakdown (Assignment Questions)
+* **What is the difference between justify-content and align-items?**
+  * `justify-content` aligns items along the **Main Axis** (horizontally by default in a row).
+  * `align-items` aligns items along the **Cross Axis** (vertically by default in a row).
+* **What does `flex: 1;` do to an item?** It tells the flex item to grow and shrink dynamically so that it fills up all the available remaining empty space inside the parent container.
+* **How do you center an element both horizontally and vertically with Flexbox?** You apply these three magic lines to the parent container:
+  ```css
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+**What does flex-wrap:** Wrap; do? By default, flex items try to fit on one single line. flex-wrap: wrap; allows items to automatically drop down onto a new row if there isn't enough screen width.
+## Code Task: Responsive Flexbox Navbar
+Here is the professional CSS rule for a clean navigation bar according to the criteria:
+<nav class="navbar">
+    <div class="logo">MyLogo</div>
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
+/* CSS Rules */
+.navbar {
     display: flex;
-    justify-content: space-around; /* Puts equal space around boxes */
-    align-items: center;           /* Centers items vertically */
-    background-color: lightgray;
+    justify-content: space-between; /* Logo on left, links on right */
+    align-items: center;            /* Perfectly centers items vertically */
+    padding: 1rem 2rem;
+    background-color: #ffffff;
 }
-.box {
-    width: 80px;
-    height: 80px;
-    background-color: blue;
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;                   /* Creates an equal gap between links */
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+}
+---
+## Q8. What are CSS Pseudo-classes and Pseudo-elements?
+### Theory
+* **What is a Pseudo-class:** A pseudo-class is used to define a special **state** of an element (e.g., when a user hovers over a button, or when an input field gets focus). It uses a single colon (`:`).
+* **What is a Pseudo-element:** A pseudo-element is used to style a specific **part** of an element, or inject virtual content before/after it. It uses a double colon (`::`).
+* **The `content` property:** The `content` property is required when using `::before` or `::after`. Without it, the pseudo-element will not appear on the page at all, even if you set a width and height.
+
+### Detailed Concept Breakdown (Assignment Questions)
+* **Does `::before` add a real HTML element?** **No.** It adds a "virtual" or pseudo-element that appears inside the browser window, but it does not alter or add any new tag to the actual HTML source code.
+* **What CSS property is required for `::before`/`::after` to appear?** The **`content: "";`** property is strictly required.
+* **What elements does `:nth-child(2n)` select?** It selects all **even-numbered** child elements (e.g., the 2nd, 4th, 6th, 8th items in a list).
+* **How would you style every 3rd list item?** You would use the **`:nth-child(3n)`** pseudo-class selector.
+### Code Task: Interactive Elements & Placeholders
+Here is the perfect CSS according to Sir's requirements (Orange hover button, star icon before featured items, and grey placeholder text):
+```css
+/* 1. Turns a button orange on hover */
+button:hover {
+    background-color: #F97316; /* Orange color */
+    color: white;
+}
+
+/* 2. Adds a star (★) before every .featured list item */
+.featured::before {
+    content: "★ "; /* Required property to show virtual content */
+    color: gold;
+    font-weight: bold;
+}
+
+/* 3. Styles placeholder text grey in an input */
+input::placeholder {
+    color: #888888; /* Soft grey color */
+    font-style: italic;
 }
 ```
-## Q8. What are CSS Pseudo-classes and Pseudo-elements?
-## Theory
-1. Pseudo-classes (State of an Element): A pseudo-class is used to style an element only when it enters a special state. 
-For example, when a user hovers their mouse over a button, or clicks a link. It uses a single colon (:).
-2. Pseudo-elements (Part of an Element): A pseudo-element is used to style a specific part of an element, rather than the whole thing.
- For example, styling just the very first letter of a paragraph, or inserting content before/after an element. It uses a double colon (::).
-
- /* Pseudo-class example */
-button:hover {
-    background-color: green; /* Changes color only when mouse moves over it */
-}
-
-/* Pseudo-element example */
-p::first-letter {
-    font-size: 30px;
-    font-weight: bold; /* Makes only the first letter big */
-}
 ## Q9. Explain CSS Transitions and Animations.
-## Theory
-1. CSS Transitions: Transitions allow you to change a property smoothly from one state to another over a given time duration. It needs a trigger, like someone hovering a mouse over an item.
-2. CSS Animations: Animations are more advanced. They can change styles automatically without needing any user trigger. They use @keyframes to define different steps or changes at different percentages of time (like 0%, 50%, 100%).
-/* Transition Example */
-.smooth-box {
-    width: 100px;
-    background-color: red;
-    transition: width 0.5s ease; /* Changes width smoothly in 0.5 seconds */
-}
-.smooth-box:hover {
-    width: 200px;
+### Theory
+* **Difference between Transitions and Animations:** * **Transitions:** Move an element smoothly from state A to state B when triggered by a user action (like hovering over a button). It needs an explicit trigger.
+  * **Animations:** Are more complex, can have multiple keyframes/stages, and can run automatically when the page loads without needing any user interaction.
+* **The `@keyframes` rule:** It is used to define the stages and styles of a CSS animation from start (`0%`) to finish (`100%`).
+* **Why prefer `transform` and `opacity` for animations:** Changing properties like `width`, `height`, or `margin` forces the browser to recalculate the layout of the entire page (Reflow), which makes animations laggy. `transform` (like `translateY`) and `opacity` are handled directly by the GPU, ensuring buttery-smooth 60fps performance.
+
+### Detailed Concept Breakdown (Assignment Questions)
+* **What are common triggers for a transition?** Common triggers are user interactions via pseudo-classes like `:hover`, `:focus`, `:active`, or adding/removing a class via JavaScript.
+* **Can you have multiple transitions on one element?** **Yes.** You can transition multiple properties at once by separating them with commas (e.g., `transition: background-color 0.3s, transform 0.5s;`).
+* **What does `animation-iteration-count: infinite;` do?** It makes the animation loop forever without stopping.
+* **What does `animation-fill-mode: forwards;` do?** It tells the browser to keep the final styles applied by the last keyframe (`100%`) after the animation finishes, instead of snapping back to the original styles.
+### Code Task: Interactive Card and Page-Load Fade Animation
+```css
+/* 1. Keyframe for Page-Load Fade-In and Slide-Up Animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px); /* Starts lower and invisible */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);    /* Moves to normal position */
+    }
 }
 
-/* Animation Example */
-.moving-box {
-    width: 50px;
-    height: 50px;
-    background-color: blue;
-    animation: slide 3s infinite; /* Runs the 'slide' animation forever */
+/* 2. Applying Animation to the Card on Page Load */
+.card {
+    width: 300px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+    /* Animation setup */
+    animation: fadeInUp 0.8s ease-out;
+    animation-fill-mode: forwards; /* Holds the 100% state */
+    
+    /* Smooth transition setup for hover interactions */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@keyframes slide {
-    0% { transform: translateX(0); }
-    50% { transform: translateX(100px); }
-    100% { transform: translateX(0); }
+/* 3. Card Hover Effect (Smoothly lifts up and adds deep shadow) */
+.card:hover {
+    transform: translateY(-10px); /* Lift up effect */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15); /* Shadow expands */
 }
-## Q10. What is Responsive Web Design? Explain Media Queries, CSS Variables, and Mobile-First Approach.
-## Theory
-1. Responsive Web Design: It means creating a website that looks good and works perfectly on all devices, whether it is a small mobile phone, a tablet, or a large desktop screen.
-2. Media Queries: These are special CSS rules that apply styles only if certain conditions are met, like if the screen size is smaller than 768px, change the layout from 3 columns to 1 column.
-3. CSS Variables: These are custom properties that allow us to store a value (like a specific color) in one place and reuse it everywhere in the CSS file. If we change it once, it updates everywhere automatically.
-4. Mobile-First Approach: This is a strategy where we write CSS styles for small mobile screens first by default, and then use Media Queries to add complex layouts for bigger laptop and desktop screens later.
-/* 1. CSS Variable */
+```
+## Q10. What is Responsive Web Design? Explain Media Queries, CSS Variables, and Mobile-First approach.
+### Theory & Explanations
+* **What is Responsive Web Design (RWD):** It is a practice of creating web pages that look great and function perfectly on all devices (Desktops, laptops, tablets, and phones) by dynamically adapting to different screen sizes.
+* **Part A — Media Queries:** Media queries allow you to apply specific CSS rules only if certain conditions are met, such as a device screen being wider or narrower than a specific size.
+* **Part B — Mobile-First Approach:** This means writing the core CSS code for small screen sizes (mobiles) first without media queries, and then using `min-width` media queries to add complex layers of layout structures as the screen gets wider. This is the industry standard because mobile devices have less hardware power, so loading cleaner CSS initially is highly efficient.
+* **Part C — CSS Variables:** Also known as Custom Properties, they allow you to store specific values (like a hex code or font-size) in one place and reuse them throughout your stylesheet.
+### Detailed Concept Breakdown (Assignment Questions)
+* **In mobile-first, do you use min-width or max-width in media queries?** You strictly use **`min-width`** because you start small and scale up.
+* **What does `@media (prefers-color-scheme: dark)` do?** It checks if the user has enabled "Dark Mode" in their operating system or device settings and automatically applies dark styles if true.
+* **Can JavaScript read and change CSS variables?** **Yes.** JavaScript can access them using `getPropertyValue()` and alter them dynamically using `style.setProperty()`, which is great for user-controlled theme switchers.
+* **What is the difference between `var(--color)` and `var(--color, fallback)`?** `var(--color)` will fail if the variable isn't defined. `var(--color, fallback)` provides a secondary backup color (`fallback`) that the browser can display if the main custom property is missing or fails.
+### Code Task: Root Variables System with Responsive Breakdown & Dark Theme
+```css
+/* Defining Global Design System in :root */
 :root {
-    --main-color: darkblue;
+    --primary-color: #3b82f6;      /* Vibrant Blue */
+    --background-color: #ffffff;   /* Pure White */
+    --text-color: #1f2937;         /* Dark Grey */
+    --font-base: 1rem;
+    --spacing-md: 1.5rem;
 }
 
-/* Default style for Mobile Screens */
+/* Automatic Dark Mode Implementation */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #111827; /* Dark Charcoal */
+        --text-color: #f9fafb;       /* Soft Off-White */
+    }
+}
+
+/* Explicit Data-Attribute Override (for manual toggle buttons) */
+[data-theme="dark"] {
+    --background-color: #111827;
+    --text-color: #f9fafb;
+}
+
+/* Base Mobile Layout (Applied by default) */
 body {
-    background-color: lightgray;
-    font-size: 14px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-size: var(--font-base);
+    padding: var(--spacing-md);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1 {
-    color: var(--main-color);
+.container {
+    display: flex;
+    flex-direction: column; /* Stack vertically on mobile devices */
+    gap: 1rem;
 }
 
-/* 2. Media Query for Desktop Screens (larger than 768px) */
+/* Tablet Media Query (768px and up) */
 @media (min-width: 768px) {
-    body {
-        background-color: white; /* Changes background on big screens */
-        font-size: 18px;         /* Makes text bigger on desktop */
+    :root {
+        --font-base: 1.1rem; /* Slightly larger typography */
+    }
+    .container {
+        flex-direction: row; /* Switch to side-by-side row columns */
+    }
+}
+
+/* Desktop Media Query (1024px and up) */
+@media (min-width: 1024px) {
+    :root {
+        --font-base: 1.2rem;
+        --spacing-md: 2.5rem; /* Expanded breathing space */
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
     }
 }
